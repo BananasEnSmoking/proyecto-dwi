@@ -57,14 +57,14 @@ function App() {
           </Menu>
         </Sider>
         <Layout className="site-layout">
-          <Header className="site-layout-background" style={{ padding: 0,background: '#404040',color: '#ffffff',textAlign: 'center' }}><img src={BANANA} style={{ marginRight: '1REM' }}/>Bananas En Smoking<img src={BANANA} style={{ transform: 'scaleX(-1)', marginLeft: '1REM' }}/></Header>
+          <Header className="site-layout-background" style={{ padding: 0,background: '#404040',color: '#ffffff',textAlign: 'center' }}><img src={BANANA} alt='Banana' style={{ marginRight: '1REM' }}/>Bananas En Smoking<img src={BANANA} alt='Banana' style={{ transform: 'scaleX(-1)', marginLeft: '1REM' }}/></Header>
           <Content style={{ margin: '0 16px' }}>
             <Switch>
               <Route exact={true} path="/" component={Home}/>
               <Route exact={true} path="/Login" component={Login}/> 
             </Switch>
           </Content>
-          <Footer style={{ textAlign: 'center', background: '#404040' }}><img src={BES} width={120} /></Footer>
+          <Footer style={{ textAlign: 'center', background: '#404040' }}><img src={BES} alt='Banana' width={120} /></Footer>
         </Layout>
       </Layout>
       </Router>
