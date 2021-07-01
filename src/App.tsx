@@ -23,9 +23,13 @@ import { Home } from './componentes/Home/Home';
 //Login
 import { Login } from './componentes/Login/Login';
 
+//Singup
+import { Singup } from './componentes/Singup/Singup';
+
 import {
   HomeTwoTone,
-  UnlockTwoTone
+  UnlockTwoTone,
+  PlusCircleTwoTone
 } from '@ant-design/icons';
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -46,6 +50,7 @@ function App() {
           <Menu theme='light' defaultSelectedKeys={['1']} mode="inline">
             <Menu.Item key='1' icon={<HomeTwoTone twoToneColor='#FEC42D'/>}>Home<Link to={'/'}></Link></Menu.Item>
             <Menu.Item key='2' icon={<UnlockTwoTone twoToneColor='#FEC42D'/>}>Login<Link to={'/Login'}></Link></Menu.Item>
+            <Menu.Item key='3' icon={<PlusCircleTwoTone twoToneColor='#FEC42D'/>}>Sing up<Link to={'/Signup'}></Link></Menu.Item>   
             {/**
             <SubMenu key="sub1" icon={<UserOutlined />} title="User">
               <Menu.Item key="3">Tom</Menu.Item>
@@ -62,6 +67,7 @@ function App() {
             <Switch>
               <Route exact={true} path="/" component={Home}/>
               <Route exact={true} path="/Login" component={Login}/> 
+              <Route exact={true} path="/Signup" component={Singup}/> 
             </Switch>
           </Content>
           <Footer style={{ textAlign: 'center', background: '#404040' }}><img src={BES} alt='Banana' width={120} /></Footer>
