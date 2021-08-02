@@ -36,7 +36,7 @@ export const AllProducts:React.FC =()=>{
                {products !== undefined && products !== null?
                products.map((prod:any,index:any)=> {return <Col>
                <Card key={index} title={prod.productName}>
-                   <Image src='https://picsum.photos/200/300'/>
+                   <Image src={prod.img} width={230} height={300}/>
                    <br />
                    <Rate allowHalf defaultValue={prod.rating} disabled />
                    <Meta title={`Precio:  $${prod.price}`}/>
