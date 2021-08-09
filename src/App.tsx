@@ -38,6 +38,8 @@ import {
   PlusCircleTwoTone,
   ShopTwoTone
 } from '@ant-design/icons';
+import { ProductDetails } from './componentes/Products/ProductDetails';
+import { Car } from './componentes/Car/Car';
 
 const { Header, Content, Footer, Sider } = Layout;
 //const { SubMenu } = Menu;
@@ -122,6 +124,10 @@ function App() {
               }
               <Route exact={true} path="/AllProducts" component={AllProducts}/> 
               <Route exact={true} path="/AddProduct" component={Seller}/> 
+              <Route exact={true} path="/Product/:idproduct" component={ProductDetails}/>
+              <Route exact={true} path="/MyCar" component={Car}/>
+              
+
               
             </Switch>
           </Content>
