@@ -1,28 +1,46 @@
 import * as React from 'react';
-import { Row,Col,Card,Image,Form,Input,Upload, Button, message } from "antd";
+import { Row,Col,Card,Image,Form,Input, Button, message,Select } from "antd";
 import { urlApi } from "../../API";
 import { useHistory } from "react-router-dom";
 
 
 const { Meta } = Card;
+const { TextArea } = Input;
 
 
-const Dragger = Upload.Dragger;
+
 
 
 export const Seller:React.FC =()=>{
+    const [categories,setCategories]=React.useState<any>();
     const [loading,setLoading]=React.useState<boolean>();
-    const [image,setImage]=React.useState<any>();
-    const [img,setIMG]=React.useState<any>();
     const [dataProduct,setDataProduct]=React.useState<any>({
         'name':'',
-        'price':''
+        'price':'',
+        'category':1,
+        'longDescription':'',
     });
     let history = useHistory();
 
     
 
     const [token,setToken]=React.useState<any>(sessionStorage.token)
+
+    async function getCategories() {
+        try {
+          const getInfo = await fetch(`${urlApi}/getCategories`,{ method:'GET', mode:'cors', headers:{ 
+            'Accept': 'application/json',
+            'x-access-token': token
+          }});
+          const res = await getInfo.json();
+          if(getInfo.status === 200){
+            setCategories(res)      
+          }
+        } catch (error) {
+          console.log(error)
+        }
+      }
+    
 
     async function insertData() {
         try {
@@ -41,15 +59,11 @@ export const Seller:React.FC =()=>{
         } catch (error) {
           console.log(error)
         }
-      }
+    }
     
 
     const handleOnChange =(e:any)=>{
         setDataProduct({...dataProduct,[e.currentTarget.name]:e.currentTarget.value});
-    }
-
-    const hanldeChange=(input:any)=>{
-        console.log(input.file)
     }
 
     const handleIMG =async(e:any) => {
@@ -73,6 +87,14 @@ export const Seller:React.FC =()=>{
         }
     }
 
+    const handleOnchangeCategory =(e:any)=>{
+        setDataProduct({...dataProduct,['category']:e})
+    }
+
+    React.useEffect(()=>{
+        getCategories()
+    },[])
+
     return (
         <React.Fragment>
             <Row gutter={{ xs: 4, sm: 16, md: 24, lg: 32 }} style={{ marginTop:'2rem' }}>
@@ -87,6 +109,13 @@ export const Seller:React.FC =()=>{
                         >
                             <Input name="name" value={dataProduct.name} onChange={handleOnChange} maxLength={30} style={{ maxWidth:'15rem' }} placeholder='Enter the name'/>
                         </Form.Item>
+                        <Form.Item label='Category'>
+                            <Select onChange={handleOnchangeCategory} value={dataProduct.category} style={{ maxWidth:'15rem' }}>
+                                {categories !== undefined && categories !== null ?categories.map((category:any,index:number)=>{
+                                return <Select.Option key={index} value={category.idcategory}>{`${category.category}`}</Select.Option>
+                                }):""}
+                            </Select>
+                        </Form.Item>
                         <Form.Item
                         label="Price"
                         name="price"
@@ -96,7 +125,14 @@ export const Seller:React.FC =()=>{
                         </Form.Item>
 
                         <input type="file"  name='file' onChange={handleIMG} placeholder='Subir foto'/>
-                        <Button htmlType='submit' type='primary' style={{ margin:'1rem' }}>Enviar</Button>
+                        <Form.Item
+                        label="Description"
+                        name="longDescription"
+                        rules={[{ required: true,pattern:/^[^'^"]*$/ , message: 'Invalid description' }]}
+                        >
+                            <TextArea  showCount autoSize={{minRows: 2, maxRows: 6 }} bordered={true} maxLength={600} name="longDescription" placeholder='Insert a long description' onChange={handleOnChange} style={{ margin:'1rem' }}/>
+                        </Form.Item>
+                        <Button htmlType='submit' type='primary' style={{ margin:'1rem' }}>Send</Button>
                         </Form>
                     </Card>
                 </Col>
@@ -105,7 +141,7 @@ export const Seller:React.FC =()=>{
                 <Card title={dataProduct.name}>
                    <Image src={dataProduct.image} width={230} height={300}/>
                    <br />
-                   <Meta title={`Price:  $${dataProduct.price}`}/>
+                   <Meta title={`Category: ${categories !== null && categories !== undefined?categories.filter((val:any)=>val.idcategory === dataProduct.category)[0].category:''} / Price:  $${dataProduct.price}`}/>
                </Card>
                 </Col>
             </Row>
