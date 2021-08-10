@@ -4,6 +4,7 @@ import './App.css';
 import { urlApi } from "./API";
 //import BES from "../src/img/isologo/BES.png";
 import BANANA from "../src/img/isotipo/BES11.png";
+import CAR from "../src/img/carrito.svg";
 
 import { Layout, Menu } from 'antd';
 
@@ -40,6 +41,7 @@ import {
 } from '@ant-design/icons';
 import { ProductDetails } from './componentes/Products/ProductDetails';
 import { Car } from './componentes/Car/Car';
+import { Pedidos } from './componentes/Pedido/Pedidos';
 
 const { Header, Content, Footer, Sider } = Layout;
 //const { SubMenu } = Menu;
@@ -75,14 +77,14 @@ function App() {
         getUserData()
       }
     }
-  },[])
+  },[])// eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(()=>{
     setInterval(()=>{
       setToken(()=>sessionStorage.token);
       
     },500)
-  },[])
+  },[])// eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div className="App">
@@ -112,7 +114,13 @@ function App() {
           </Menu>
         </Sider>
         <Layout className="site-layout">
-          <Header className="site-layout-background" style={{ padding: 0,background: '#404040',color: '#ffffff',textAlign: 'center' }}><img src={BANANA} alt='Banana' className='App-logo' style={{ marginRight: '1REM' }}/>Bananas En Smoking<img src={BANANA} alt='Banana' className='App-logo' style={{ transform: 'scaleX(-1)', marginLeft: '1REM' }}/></Header>
+          <Header className="site-layout-background" style={{ padding: 0,background: '#404040',color: '#ffffff',textAlign: 'center',display:'inline' }}><img src={BANANA} alt='Banana' className='App-logo' style={{ marginRight: '1REM' }}/>Bananas En Smoking<img src={BANANA} alt='Banana' className='App-logo' style={{ transform: 'scaleX(-1)', marginLeft: '1REM' }}/>
+          {sessionStorage.token !== null && sessionStorage.token !== undefined?
+          <Link to='/MyCar'>
+          <img src={CAR} alt='' width={35} style={{ position:'relative',left:'40rem'}}/>
+          </Link>
+          :''}
+          </Header>
           <Content style={{ margin: '0 16px' }}>
             <Switch>
               <Route exact={true} path="/" component={Home}/>
@@ -126,6 +134,8 @@ function App() {
               <Route exact={true} path="/AddProduct" component={Seller}/> 
               <Route exact={true} path="/Product/:idproduct" component={ProductDetails}/>
               <Route exact={true} path="/MyCar" component={Car}/>
+              <Route exact={true} path="/Pedidos" component={Pedidos}/>
+
               
 
               

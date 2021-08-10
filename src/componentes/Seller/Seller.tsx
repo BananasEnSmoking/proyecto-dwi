@@ -13,7 +13,6 @@ const { TextArea } = Input;
 
 export const Seller:React.FC =()=>{
     const [categories,setCategories]=React.useState<any>();
-    const [loading,setLoading]=React.useState<boolean>();
     const [dataProduct,setDataProduct]=React.useState<any>({
         'name':'',
         'price':'',
@@ -24,7 +23,7 @@ export const Seller:React.FC =()=>{
 
     
 
-    const [token,setToken]=React.useState<any>(sessionStorage.token)
+    const token= sessionStorage.token
 
     async function getCategories() {
         try {
@@ -71,11 +70,9 @@ export const Seller:React.FC =()=>{
         const data = new FormData()
         data.append('file',files[0])
         data.append('upload_preset','dwzggunyf')
-        setLoading(true)
         const res = await fetch('https://api.cloudinary.com/v1_1/dwzggunyf/image/upload',{method:'post',body:data})
         const file = await res.json()
         setDataProduct((current:any)=>{return {...current,'image':file.secure_url}})
-        setLoading(false)
     }
 
     const handleOnSubmit =()=>{
@@ -88,12 +85,12 @@ export const Seller:React.FC =()=>{
     }
 
     const handleOnchangeCategory =(e:any)=>{
-        setDataProduct({...dataProduct,['category']:e})
+        setDataProduct({...dataProduct,'category':e})
     }
 
     React.useEffect(()=>{
-        getCategories()
-    },[])
+        getCategories();
+    },[])// eslint-disable-line react-hooks/exhaustive-deps
 
     return (
         <React.Fragment>

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { urlApi } from "../../API";
 import {Link} from "react-router-dom"
-import { Row,Col,Card, message,Image,Rate,Input, Button,Form } from "antd";
+import { Row,Col,Card, message,Image,Rate,Input, Button } from "antd";
 
 const { Meta } = Card;
 const { Search } = Input;
@@ -38,7 +38,7 @@ export const AllProducts:React.FC =()=>{
 
     const handleOnEnterSearch =(e:any)=>{
       setShowProducts(products.filter(
-        (produ:any)=>(produ.rating == parseInt(e) || produ.productName.toLowerCase().includes(e.toLowerCase()) || produ.sellerName.toLowerCase().includes(e.toLowerCase()) || produ.sellerLastName.toLowerCase().includes(e.toLowerCase())))
+        (produ:any)=>(parseFloat(produ.rating) === parseFloat(e) || produ.productName.toLowerCase().includes(e.toLowerCase()) || produ.sellerName.toLowerCase().includes(e.toLowerCase()) || produ.sellerLastName.toLowerCase().includes(e.toLowerCase())))
         )
     }
 

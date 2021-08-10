@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { urlApi } from "../../API";
-import {useParams,useHistory} from "react-router-dom"
+import {useParams} from "react-router-dom"
 import { Row,Col,Card, message,Image,Rate,Input, Button,Form,Spin,Modal } from "antd";
 
 const { Meta } = Card;
@@ -17,7 +17,7 @@ export const ProductDetails:React.FC=()=>{
         'cantidad':1, 
     });
     const [confirm,setConfirm]=React.useState<boolean>(false);
-    const [token,setToken]=React.useState<any>(sessionStorage.token)
+    const token=sessionStorage.token
 
 
     const formatter = new Intl.NumberFormat('en-US',{
@@ -69,7 +69,7 @@ export const ProductDetails:React.FC=()=>{
           if(params){
               getProduct()
           }
-      },[])
+      },[])// eslint-disable-line react-hooks/exhaustive-deps
 
       const handleOnChange =(e:any)=>{
           setAddCar({...addCar,'cantidad':e.target.value})

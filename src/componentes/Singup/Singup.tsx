@@ -80,8 +80,10 @@ export const Singup:React.FC =()=>{
                             </Form.Item>
                                 </Col>
                                 <Col>
-                                <Form.Item label='Password'>
-                                <Input  name='password' onChange={onChangeInput} type='password' minLength={8} maxLength={12} required className='inpu'/>
+                                <Form.Item label='Password'
+                                rules={[{ required: true,pattern:/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/, message: 'Invalid Password' }]}
+                                >
+                                <Input  name='password' onChange={onChangeInput} type='password' minLength={8} maxLength={16} required className='inpu'/>
                             </Form.Item>
                                 </Col>
                                 <Col>
