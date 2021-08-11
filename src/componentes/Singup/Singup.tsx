@@ -2,6 +2,8 @@ import * as React from "react";
 import { Row,Col,Card,Form,Input,Radio,Button,message } from "antd";
 import { urlApi } from "../../API";
 import { useHistory } from "react-router-dom";
+import BES from "../../img/isologo/BES.png";
+
 
 
 export const Singup:React.FC =()=>{
@@ -25,6 +27,9 @@ export const Singup:React.FC =()=>{
             if(response.status === 401){
                 message.error('Fail!')
             }
+            if(response.status === 400){
+                message.error(res)
+            }
             if(res.msg === 'success'){
                 message.success('Creado con exito');
                 history.push(`/Login`);
@@ -35,7 +40,8 @@ export const Singup:React.FC =()=>{
       }
 
     const onChange =(e:any)=>{
-        setData((current:any) => {return {...current,['rol']:e.target.value}})
+        setData((current:any) => {return {...current,'rol':e.target.value}})
+        console.log(data)
     }
 
     const onChangeInput =(e:any)=>{
@@ -53,37 +59,51 @@ export const Singup:React.FC =()=>{
         <React.Fragment>
             <Row justify='center' style={{ margin:10}}>
                 <Col span={8}>
-                    <Card title='Sing up'>
-                        <Form layout='vertical' onSubmitCapture={onSubmit}>
+                    <Card title={
+                    <React.Fragment>
+                        <Row>
+                            <Col span={12}>
+                        <img src={BES} alt='Banana' width={120} />
+                            </Col>
+                            <Col span={12}>
+                        <h2>Sing up</h2>
+                            </Col>
+                        </Row>
+                        </React.Fragment>
+                        } className='title-card' style={{ borderRadius:'10px',boxShadow:'0px 5px 8px rgba(0, 0, 0, 0.377)',background: 'linear-gradient(to right, #06beb6, #48b1bf)'
+}}>
+                        <Form layout='vertical' onSubmitCapture={onSubmit} >
                             <Row gutter={[15,15]}>
                                 <Col>
                                 <Form.Item label='Username'>
-                                <Input name='username' onChange={onChangeInput} type='text'/>
+                                <Input name='username' onChange={onChangeInput} type='text' minLength={3} maxLength={20} required className='inpu'/>
                             </Form.Item>
                                 </Col>
                                 <Col>
-                                <Form.Item label='Username'>
-                                <Input  name='password' onChange={onChangeInput} type='password'/>
+                                <Form.Item label='Password'
+                                rules={[{ required: true,pattern:/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/, message: 'Invalid Password' }]}
+                                >
+                                <Input  name='password' onChange={onChangeInput} type='password' minLength={8} maxLength={16} required className='inpu'/>
                             </Form.Item>
                                 </Col>
                                 <Col>
                                 <Form.Item label='Name'>
-                                <Input name='name' onChange={onChangeInput} type='text'/>
+                                <Input name='name' onChange={onChangeInput} type='text' minLength={3} maxLength={20} required className='inpu'/>
                             </Form.Item>
                                 </Col>
                                 <Col>
                                 <Form.Item label='Last Name'>
-                                <Input  name='lastname' onChange={onChangeInput} type='text'/>
+                                <Input  name='lastname' onChange={onChangeInput} type='text' minLength={3} maxLength={20} required className='inpu'/>
                             </Form.Item>
                                 </Col>
                                 <Col>
                                 <Radio.Group name='rol' onChange={onChange} value={data.rol}>
-                                <Radio value={2}>Purchase</Radio>
+                                <Radio value={2}>Buyer</Radio>
                                 <Radio value={3}>Seller</Radio>
                             </Radio.Group>
                                 </Col>
                                 <Col>
-                                <Button type='primary' htmlType='submit'>
+                                <Button type='primary' className='btn-send' htmlType='submit'>
                                 Send
                             </Button>
                                 </Col>
