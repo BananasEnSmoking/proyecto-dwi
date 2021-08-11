@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { urlApi } from "../../API";
 import { message,Input, Button,Table, Popconfirm } from "antd";
+import { PayPalButton } from "react-paypal-button-v2";
+
 
 
 export const Car:React.FC =()=>{
@@ -187,7 +189,24 @@ export const Car:React.FC =()=>{
         <React.Fragment>
             <h1>Final Amount: {formatter.format(tAmount)}</h1>
             <Table columns={columnsCar} dataSource={productsCar} style={{ margin:'1rem' }} pagination={false} bordered/>
-            {productsCar !== null && productsCar !== undefined && tAmount > .01}
+            {productsCar !== null && productsCar !== undefined && tAmount > .01?
+            <PayPalButton
+            amount={tAmount.toFixed(2)}
+            // shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
+            
+            onSuccess={(details:any, data:any) => {
+              cleanCar()
+              const pedido ={
+                  'idpaypal':details.id,
+                  'amount':tAmount
+              }
+              insertPedido(pedido)
+            }}
+            
+            />
+            :
+            ''
+            }
         </React.Fragment>
     )
 }
