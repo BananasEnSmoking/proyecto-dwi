@@ -54,38 +54,38 @@ function App() {
     setCollapse((currentCollapse:boolean)=>!collapse)
   }
 
-
-  },[])// eslint-disable-line react-hooks/exhaustive-deps
-    },500)
-      
-      setToken(()=>sessionStorage.token);
-    setInterval(()=>{
-  useEffect(()=>{
-
-  },[])// eslint-disable-line react-hooks/exhaustive-deps
-    }
-      }
-        getUserData()
-      if(infoUser === null || infoUser === undefined){
+  async function getUserData() {
     if(token !== null && token !== undefined){
-  useEffect(()=>{
-
-  }
-    }
-      }
-        console.log(error)
-      } catch (error) {
-        }
-          setInfoUser(()=>{return usuario[0]})
-        if(response.status === 200 && usuario[0]){
+      try {
+        const response = await fetch(`${urlApi}/infousuario`,{ method:'Get', mode:'cors', headers:{ 
+          'Accept': 'application/json',
+          'x-access-token': `${token}`
         }});
         const usuario = await response.json();
-          'x-access-token': `${token}`
-          'Accept': 'application/json',
-        const response = await fetch(`${urlApi}/infousuario`,{ method:'Get', mode:'cors', headers:{ 
-      try {
+        if(response.status === 200 && usuario[0]){
+          setInfoUser(()=>{return usuario[0]})
+        }
+      } catch (error) {
+        console.log(error)
+      }
+    }
+  }
+
+  useEffect(()=>{
     if(token !== null && token !== undefined){
-  async function getUserData() {
+      if(infoUser === null || infoUser === undefined){
+        getUserData()
+      }
+    }
+  },[])// eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(()=>{
+    setInterval(()=>{
+      setToken(()=>sessionStorage.token);
+      
+    },500)
+  },[])// eslint-disable-line react-hooks/exhaustive-deps
+
   return (
     <div className="App">
       <Router>
@@ -130,8 +130,8 @@ function App() {
               :
               <Route exact={true} path="/Signup" component={Singup}/> 
               }
-              <Route exact={true} path="/AddProduct" component={Seller}/> 
               <Route exact={true} path="/AllProducts" component={AllProducts}/> 
+              <Route exact={true} path="/AddProduct" component={Seller}/> 
               <Route exact={true} path="/Product/:idproduct" component={ProductDetails}/>
               <Route exact={true} path="/MyCar" component={Car}/>
               <Route exact={true} path="/Pedidos" component={Pedidos}/>
