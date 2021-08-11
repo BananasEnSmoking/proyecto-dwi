@@ -74,17 +74,17 @@ export const Login:React.FC=()=>{
 
     React.useEffect(()=>{
       getUserData()
-    },[token])
+    },[token])// eslint-disable-line react-hooks/exhaustive-deps
 
     React.useEffect(()=>{
       setInterval(()=>{
         setIsIn(!isIn)
       },500)
-    },[])
+    },[])// eslint-disable-line react-hooks/exhaustive-deps
 
     React.useEffect(()=>{
 
-    },[isIn])
+    },[isIn])// eslint-disable-line react-hooks/exhaustive-deps
 
 
     return(
@@ -131,7 +131,7 @@ export const Login:React.FC=()=>{
       <Form.Item
         label="Contraseña"
         name="contrasena"
-        rules={[{ required: true, message: 'Ingresa tu contraseña' }]}
+        rules={[{ required: true,pattern:/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/, message: 'Invalid Password' }]}
         >
         <Input.Password width='auto' name="password" onChange={handleOnChange} />
       </Form.Item>
