@@ -4,9 +4,6 @@ import { urlApi } from "../../API";
 import { useHistory } from "react-router-dom";
 import BES from "../../img/isologo/BES.png";
 
-
-
- 
 export const Singup:React.FC =()=>{
     let history = useHistory();
     const [data,setData]=React.useState<any>({
