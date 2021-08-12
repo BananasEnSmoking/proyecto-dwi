@@ -39,7 +39,7 @@ export const Pedidos:React.FC =()=>{
               if( res.msg === 'success'){
                   setPedidos(addKeyPedido(res.pedidos))   
               }else{
-                  message.error('Fail to Load!')
+                  message.error('Fail to Load!!')
               }
         } catch (error) {
               console.log(error)
