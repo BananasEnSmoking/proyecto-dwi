@@ -39,7 +39,7 @@ export const Pedidos:React.FC =()=>{
               if( res.msg === 'success'){
                   setPedidos(addKeyPedido(res.pedidos))   
               }else{
-                  message.error('Fail to Load!')
+                  message.error('Fail to Load!!')
               }
         } catch (error) {
               console.log(error)
@@ -69,9 +69,11 @@ export const Pedidos:React.FC =()=>{
         getPedidos()
     },[])// eslint-disable-line react-hooks/exhaustive-deps
 
+    //Add table
 
     return(
         <React.Fragment>
+            
             <Table columns={columsPedido} dataSource={pedidos} style={{ marginTop:'1rem' }}/>
         </React.Fragment>
     )
