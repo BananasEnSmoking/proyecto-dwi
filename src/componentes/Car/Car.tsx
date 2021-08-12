@@ -86,7 +86,8 @@ export const Car:React.FC =()=>{
         }
     }
 
-    //Agregar "Key" a cada movimiento para evitar warning react
+
+    // Agregar "Key" a cada movimiento para evitar warning react
     const addKeyCar=(prods:any)=>{
     const arr:any =[]
     let total=0;
@@ -183,7 +184,7 @@ export const Car:React.FC =()=>{
 
       React.useEffect(()=>{
           getCar()
-      },[])// eslint-disable-line react-hooks/exhaustive-deps
+      },[]) // eslint-disable-line react-hooks/exhaustive-deps
 
     return(
         <React.Fragment>
