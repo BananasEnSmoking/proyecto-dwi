@@ -69,9 +69,11 @@ export const Pedidos:React.FC =()=>{
         getPedidos()
     },[])// eslint-disable-line react-hooks/exhaustive-deps
 
+    //Add table
 
     return(
         <React.Fragment>
+            
             <Table columns={columsPedido} dataSource={pedidos} style={{ marginTop:'1rem' }}/>
         </React.Fragment>
     )
