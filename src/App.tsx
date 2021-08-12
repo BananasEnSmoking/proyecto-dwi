@@ -64,6 +64,7 @@ function App() {
         const usuario = await response.json();
         if(response.status === 200 && usuario[0]){
           setInfoUser(()=>{return usuario[0]})
+          console.log(usuario[0])
         }
       } catch (error) {
         console.log(error)
@@ -86,6 +87,26 @@ function App() {
     },500)
   },[])// eslint-disable-line react-hooks/exhaustive-deps
 
+  const [show,setShow] = React.useState(false)
+  const [rol,setRol] = React.useState<any>()
+
+
+  React.useEffect(()=>{
+    setInterval(()=>{
+      if(sessionStorage.token !== null && sessionStorage.token !== undefined){setShow(true);}else{setShow(false);setInfoUser(null)}
+    },500)
+  },[])
+
+  React.useEffect(()=>{
+    if(sessionStorage.token !== null && sessionStorage.token !== undefined)getUserData();
+  },[show])
+ 
+  React.useEffect(()=>{
+
+  },[infoUser])
+
+ 
+
   return (
     <div className="App">
       <Router>
@@ -99,8 +120,11 @@ function App() {
             <Menu.Item key='3' icon={<PlusCircleTwoTone twoToneColor='#FEC42D'/>}>Sing up<Link to={'/Signup'}></Link></Menu.Item>   
             }
             <Menu.Item key='4' icon={<ShopTwoTone twoToneColor='#FEC42D' />}>All Products<Link to={'/AllProducts'}></Link></Menu.Item> 
+            {infoUser !== null && infoUser !== undefined && infoUser.roles_idroles === 3?
             <Menu.Item key='5' icon={<ShopTwoTone twoToneColor='#FEC42D' />}>Add Product<Link to={'/AddProduct'}></Link></Menu.Item> 
-
+            :
+            ''
+            }
 
               
             {/**
@@ -126,16 +150,24 @@ function App() {
               <Route exact={true} path="/" component={Home}/>
               <Route exact={true} path="/Login" component={Login}/> 
               {token !== null && token !== undefined?
-              ''
+              <Route exact={true} path="/MyCar" component={Car}/>
+              
               :
               <Route exact={true} path="/Signup" component={Singup}/> 
-              }
+            }
               <Route exact={true} path="/AllProducts" component={AllProducts}/> 
+              {infoUser !== null && infoUser !== undefined && infoUser.roles_idroles === 3?
               <Route exact={true} path="/AddProduct" component={Seller}/> 
+              :
+            ''
+            }
               <Route exact={true} path="/Product/:idproduct" component={ProductDetails}/>
-              <Route exact={true} path="/MyCar" component={Car}/>
+              {token !== null && token !== undefined?
+              
               <Route exact={true} path="/Pedidos" component={Pedidos}/>
-
+              :
+              ''
+              }
               
 
               

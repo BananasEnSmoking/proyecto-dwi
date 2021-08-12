@@ -73,7 +73,9 @@ export const Singup:React.FC =()=>{
                         <Form layout='vertical' onSubmitCapture={onSubmit} >
                             <Row gutter={[15,15]}>
                                 <Col>
-                                <Form.Item label='Username'>
+                                <Form.Item label='Username'
+                                rules={[{ required: true,pattern:/^[^'^"]*$/, message: 'Invalid Password' }]}
+                                >
                                 <Input name='username' onChange={onChangeInput} type='text' minLength={3} maxLength={20} required className='inpu'/>
                             </Form.Item>
                                 </Col>
@@ -85,12 +87,15 @@ export const Singup:React.FC =()=>{
                             </Form.Item>
                                 </Col>
                                 <Col>
-                                <Form.Item label='Name'>
+                                <Form.Item label='Name'
+                                rules={[{ required: true,pattern:/^[^'^"]*$/, message: 'Invalid Password' }]}>
                                 <Input name='name' onChange={onChangeInput} type='text' minLength={3} maxLength={20} required className='inpu'/>
                             </Form.Item>
                                 </Col>
                                 <Col>
-                                <Form.Item label='Last Name'>
+                                <Form.Item label='Last Name'
+                                rules={[{ required: true,pattern:/^[^'^"]*$/, message: 'Invalid Password' }]}
+                                >
                                 <Input  name='lastname' onChange={onChangeInput} type='text' minLength={3} maxLength={20} required className='inpu'/>
                             </Form.Item>
                                 </Col>

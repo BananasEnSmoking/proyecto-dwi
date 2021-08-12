@@ -1,15 +1,17 @@
 import * as React from 'react';
 import { urlApi } from "../../API";
 import {Link} from "react-router-dom"
-import { Row,Col,Card, message,Image,Rate,Input, Button } from "antd";
+import { Row,Col,Card, message,Image,Rate,Input, Button,Form,Select } from "antd";
 
 const { Meta } = Card;
 const { Search } = Input;
 
 export const AllProducts:React.FC =()=>{
     const [products,setProducts]=React.useState<any>();
+    const [categories,setCategories]=React.useState<any>();
     const [showProducts,setShowProducts]=React.useState<any>();
     const [search,setSearch]=React.useState<any>();
+    const [category,setCategory]=React.useState<any>(1);
 
     async function getProducts() {
       try {
@@ -18,7 +20,6 @@ export const AllProducts:React.FC =()=>{
               'x-access-token': `${sessionStorage.token}`
             }});
             const res = await response.json();
-            console.log(res)
             if( res.msg === 'success'){
                 setProducts(res.products)      
             }else{
@@ -28,12 +29,42 @@ export const AllProducts:React.FC =()=>{
             console.log(error)
         }
     }
+
+    async function getCategories() {
+      try {
+        const getInfo = await fetch(`${urlApi}/getCategories`,{ method:'GET', mode:'cors', headers:{ 
+          'Accept': 'application/json',
+          'x-access-token': `${sessionStorage.token}`
+        }});
+        const res = await getInfo.json();
+        if(getInfo.status === 200){
+          setCategories(res)      
+        }
+      } catch (error) {
+        console.log(error)
+      }
+    }
+
+    async function getBycategory() {
+      try {
+        const body = JSON.stringify({'idcategory':category});
+        const getInfo = await fetch(`${urlApi}/getProductsByCategory`,{ method:'post', mode:'cors', headers:{ 
+          'Accept': 'application/json',
+          "Content-Type": "application/json",
+          'x-access-token': `${sessionStorage.token}`
+        },body:body});
+        const res = await getInfo.json();
+        if(getInfo.status === 200){
+          setProducts(res.products)      
+        }
+      } catch (error) {
+        console.log(error)
+      }
+    }
       
     const handleSearch =(e:any)=>{
       setSearch(e.currentTarget.value.replace(/['"]/g,''))
       handleOnEnterSearch(e.currentTarget.value.replace(/['"]/g,''))
-      console.log(search)
-      
     }
 
     const handleOnEnterSearch =(e:any)=>{
@@ -45,18 +76,35 @@ export const AllProducts:React.FC =()=>{
       React.useEffect(()=>{
         getProducts()
         
-      },[])
+      },[])// eslint-disable-line react-hooks/exhaustive-deps
 
       React.useEffect(()=>{
         if(products){
           setShowProducts(products)
         }
-      },[products])
+      },[products])// eslint-disable-line react-hooks/exhaustive-deps
+
+      React.useEffect(()=>{
+        getCategories();
+    },[])// eslint-disable-line react-hooks/exhaustive-deps
+
+      const handleOnchangeCategory =(e:any)=>{
+        setCategory(e)
+    }
+
+    
 
     return(
        <React.Fragment>
          <Row style={{ margin:'2rem' }}>
            <Col span={8}>
+           <Form.Item label='Category'>
+              <Select onChange={handleOnchangeCategory} value={category} style={{ maxWidth:'15rem' }}>
+                  {categories !== undefined && categories !== null ?categories.map((category:any,index:number)=>{
+                    return <Select.Option key={index} value={category.idcategory}>{`${category.category}`}</Select.Option>
+                  }):""}
+              </Select>
+            </Form.Item>
            </Col>
            <Col span={8} >
          <Search placeholder={'Enter your Search'} onChange={handleSearch} />
