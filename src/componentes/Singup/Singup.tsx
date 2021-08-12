@@ -6,7 +6,7 @@ import BES from "../../img/isologo/BES.png";
 
 
 
-
+ 
 export const Singup:React.FC =()=>{
     let history = useHistory();
     const [data,setData]=React.useState<any>({
