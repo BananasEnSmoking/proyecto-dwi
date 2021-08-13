@@ -1,13 +1,14 @@
 import * as React from 'react';
 import { urlApi } from "../../API";
 import {Link} from "react-router-dom"
-import { Row,Col,Card, message,Image,Rate,Input, Button,Form,Select } from "antd";
+import { Row,Col,Card, message,Image,Rate,Input, Button,Form,Select,Radio } from "antd";
 
 const { Meta } = Card;
 const { Search } = Input;
 
 export const AllProducts:React.FC =()=>{
     const [products,setProducts]=React.useState<any>();
+    const [searchValue,setSearchValue]= React.useState<any>('1');
     const [categories,setCategories]=React.useState<any>();
     const [showProducts,setShowProducts]=React.useState<any>();
     const [search,setSearch]=React.useState<any>();
@@ -74,9 +75,20 @@ export const AllProducts:React.FC =()=>{
     }
 
       React.useEffect(()=>{
-        getProducts()
-        
-      },[])// eslint-disable-line react-hooks/exhaustive-deps
+        if(searchValue == 1){
+          getProducts()
+        }else{
+          getBycategory()
+        }    
+      },[searchValue])// eslint-disable-line react-hooks/exhaustive-deps
+
+      React.useEffect(()=>{
+        if(searchValue == 1){
+          getProducts()
+        }else{
+          getBycategory()
+        }    
+      },[category])// eslint-disable-line react-hooks/exhaustive-deps
 
       React.useEffect(()=>{
         if(products){
@@ -90,9 +102,12 @@ export const AllProducts:React.FC =()=>{
 
       const handleOnchangeCategory =(e:any)=>{
         setCategory(e)
+       
     }
 
-    
+    const handleRadioButton =(e:any)=>{
+      setSearchValue(e.target.value)
+  }
 
     return(
        <React.Fragment>
@@ -104,6 +119,11 @@ export const AllProducts:React.FC =()=>{
                     return <Select.Option key={index} value={category.idcategory}>{`${category.category}`}</Select.Option>
                   }):""}
               </Select>
+              <Radio.Group defaultValue={searchValue} onChange={handleRadioButton} buttonStyle="solid" style={{ padding: '1rem' }}>
+                    <Radio.Button value="1">All</Radio.Button>
+                    <Radio.Button value="0">By category</Radio.Button>
+               
+                </Radio.Group>
             </Form.Item>
            </Col>
            <Col span={8} >
