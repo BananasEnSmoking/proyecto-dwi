@@ -122,6 +122,7 @@ export const Login:React.FC=()=>{
       >
       <Form.Item
         label="Usuario"
+        id='us'
         name="user"
         rules={[{ required: true, message: 'Ingresa tu usuario' }]}
         >
@@ -130,6 +131,7 @@ export const Login:React.FC=()=>{
 
       <Form.Item
         label="Contraseña"
+        id='psw'
         name="contrasena"
         rules={[{ required: true,pattern:/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/, message: 'Invalid Password' }]}
         >

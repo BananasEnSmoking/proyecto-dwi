@@ -118,3 +118,4 @@ export const Singup:React.FC =()=>{
         </React.Fragment>
     )
 }
+
