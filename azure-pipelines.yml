@@ -19,6 +19,11 @@ steps:
     npm install
     npm run build
     npm install --save-dev mocha
-    npm test
+    npm test2
   displayName: 'npm install and build'
 - task: PublishTestResults@2
+  inputs:
+    testResultsFormat: 'JUnit'
+    testResultsFiles: '**/TEST-*.xml'
+    testRunTitle: 'Ejecutando Prueba'
+
