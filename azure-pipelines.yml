@@ -24,6 +24,6 @@ steps:
 - task: PublishTestResults@2
   inputs:
     testResultsFormat: 'JUnit'
-    testResultsFiles: 'TEST-RESULTS.xml'
+    testResultsFiles: "TEST-*.xml"
     testRunTitle: 'Ejecutar Prueba'
 
