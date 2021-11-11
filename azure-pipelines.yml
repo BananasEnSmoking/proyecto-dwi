@@ -25,6 +25,7 @@ steps:
 - task: PublishTestResults@2
   inputs:
     testResultsFormat: 'JUnit'
-    testResultsFiles: '**/TEST-*.xml'
-    testRunTitle: 'Ejecutar Pruebas'
+    testResultsFiles: 'testresults/TEST-*.xml'
+    searchFolder: '$(system.defaultworkingdirectory)/acceptancetest/testfolder'
+    failTaskOnFailedTests: true
 
