@@ -4,10 +4,10 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
 
 trigger:
-- devops
+- master
 
 pool:
-  vmImage: windows-latest
+  vmImage: ubuntu-latest
 
 steps:
 - task: NodeTool@0
@@ -24,6 +24,6 @@ steps:
 - task: PublishTestResults@2
   inputs:
     testResultsFormat: 'JUnit'
-    testResultsFiles: '/TEST-RESULTS.xml'
-    testRunTitle: 'Ejecutando Prueba'
+    testResultsFiles: '**/TEST-*.xml'
+    testRunTitle: 'Ejecutar Prueba'
 
