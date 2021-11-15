@@ -19,9 +19,13 @@ steps:
     npm install
     npm run build
     npm install --save-dev mocha
-    npm test
+    npx test
   displayName: 'npm install and build'
-- task: PublishTestResults@2
+- task: VSTest@2
   inputs:
-    testResultsFormat: 'JUnit'
-    testResultsFiles: './TEST-RESULTS'
+    testSelector: 'testAssemblies'
+    testAssemblyVer2: |
+      **\*test*.dll
+      !**\*TestAdapter.dll
+      !**\obj\**
+    searchFolder: '$(System.DefaultWorkingDirectory)'
