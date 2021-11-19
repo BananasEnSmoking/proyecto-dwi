@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css2?family=Otomanopee+One&display=swap');
+
+.site-layout-background {
+  background: #404040;
+}
+
+.title-card{
+  font-family:'Otomanopee One', 'sans-serif';
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 6s linear;
+  }
+}
+
+@keyframes App-logo-spin{
+  0% {
+    transform: rotate(-5deg);
+  }
+  50% {
+   transform: rotate(60deg);
+ }
+ 100% {
+   transform: rotate(-5deg);
+ } 
+}
+
+.inpu{
+  background: transparent;
+  outline: 0;
+  border-width: 0 0 2px 0;
+  border-color:teal;
+  color: #f2f2f2;
+  font-size: 20px;
+  height: 30px;
+  line-height: 30px;
+  outline: none !important;
+  width: 100%;
+}
+
+
+.inpu:hover{
+  outline: 0;
+  border-width: 0px 0px 2px 0px;
+  border-color:white;
+}
+
+.inpu:focus{
+  border: 0;
+  color: #f2f2f2;
+  outline: none !important;
+  background-color: black;
+
+}
+
+.btn-send{
+  border-radius: 10px;
+  background: #28B463;
+  color: #FFFFFF;
+  border-color: #28B463;
+}
+
+.btn-send:hover{
+  background: #58D68D;
+  color: #FFFFFF;
+  border-color:#58D68D;
+}
+
+.btn-send:active ,.btn-send:focus{
+  background: #1D8348;
+  color: #FFFFFF;
+  border-color: #1D8348;
+}
+
+.ant-table-thead > tr > th{
+  font-family: "Open Sans", arial;
+  font-size: medium;
+  background: steelblue;
+  font-weight: lighter;
+  text-shadow: 0 1px 0 #38678f;
+  color: white;
+  border: 1px solid #38678f;
+  box-shadow: inset 0px 1px 2px #568ebd;
+  transition: all 0.2s;
+}
