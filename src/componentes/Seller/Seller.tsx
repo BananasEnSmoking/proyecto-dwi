@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Row,Col,Card,Image,Form,Input, Button, message,Select } from "antd";
 import { urlApi } from "../../API";
 import { useHistory } from "react-router-dom";
-
+import { classDeclaration } from '@babel/types';
 
 const { Meta } = Card;
 const { TextArea } = Input;
@@ -58,11 +58,20 @@ export const Seller:React.FC =()=>{
         } catch (error) {
           console.log(error)
         }
-    }
+    }    
     
-
     const handleOnChange =(e:any)=>{
         setDataProduct({...dataProduct,[e.currentTarget.name]:e.currentTarget.value});
+    }
+    
+    const handleCamera = async() => {
+        navigator.mediaDevices.getUserMedia({video: true, audio:false})
+            .then(function(mediaStream) {
+                console.log(mediaStream);
+                
+            }).catch(function(err) {
+                console.log(err)
+            });
     }
 
     const handleIMG =async(e:any) => {
@@ -134,12 +143,13 @@ export const Seller:React.FC =()=>{
                     </Card>
                 </Col>
                 <Col style={{textAlign:'center'}}>
-                <h1>Card Preview</h1>
+                <h1>Item Preview</h1>
                 <Card title={dataProduct.name}>
                    <Image src={dataProduct.image} width={230} height={300}/>
                    <br />
                    <Meta title={`Category: ${categories !== null && categories !== undefined?categories.filter((val:any)=>val.idcategory === dataProduct.category)[0].category:''} / Price:  $${dataProduct.price}`}/>
-               </Card>
+                </Card>          
+                <Button onClick={handleCamera}>Take a photo</Button>
                 </Col>
             </Row>
         </React.Fragment>

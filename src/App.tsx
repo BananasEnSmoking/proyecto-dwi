@@ -5,8 +5,8 @@ import { urlApi } from "./API";
 //import BES from "../src/img/isologo/BES.png";
 import BANANA from "../src/img/isotipo/BES11.png";
 import CAR from "../src/img/carrito.svg";
-
 import { Layout, Menu } from 'antd';
+import OneSignalReact from 'react-onesignal';
 
 import {
   BrowserRouter as Router,
@@ -53,6 +53,13 @@ function App() {
   const handleOnCollapse =()=>{
     setCollapse((currentCollapse:boolean)=>!collapse)
   }
+  
+  useEffect(() => {
+    OneSignalReact.init({
+      appId: "ab53344b-5cee-4fea-b079-3b5052a3be9f",
+    });
+    console.log('onesignal has been initialized')
+  }, []);  
 
   async function getUserData() {
     if(token !== null && token !== undefined){
@@ -100,13 +107,13 @@ function App() {
   React.useEffect(()=>{
     if(sessionStorage.token !== null && sessionStorage.token !== undefined)getUserData();
   },[show])
- 
+  
   React.useEffect(()=>{
-
+    
   },[infoUser])
 
- 
-
+  
+  
   return (
     <div className="App">
       <Router>
@@ -117,14 +124,14 @@ function App() {
             <Menu.Item key='2' icon={<UnlockTwoTone twoToneColor='#FEC42D'/>}>Login<Link to={'/Login'}></Link></Menu.Item>
             {token !== null && token !== undefined?
             '':
-            <Menu.Item key='3' icon={<PlusCircleTwoTone twoToneColor='#FEC42D'/>}>Sing up<Link to={'/Signup'}></Link></Menu.Item>   
+            <Menu.Item key='3' icon={<PlusCircleTwoTone twoToneColor='#FEC42D'/>}>Sign up<Link to={'/Signup'}></Link></Menu.Item>   
             }
             <Menu.Item key='4' icon={<ShopTwoTone twoToneColor='#FEC42D' />}>All Products<Link to={'/AllProducts'}></Link></Menu.Item> 
             {infoUser !== null && infoUser !== undefined && infoUser.roles_idroles === 3?
             <Menu.Item key='5' icon={<ShopTwoTone twoToneColor='#FEC42D' />}>Add Product<Link to={'/AddProduct'}></Link></Menu.Item> 
             :
             ''
-            }
+          }
 
               
             {/**
@@ -132,8 +139,8 @@ function App() {
               <Menu.Item key="3">Tom</Menu.Item>
               <Menu.Item key="4">Bill</Menu.Item>
               <Menu.Item key="5">Alex</Menu.Item>
-            </SubMenu>
-             * 
+              </SubMenu>
+              * 
              */}
           </Menu>
         </Sider>
@@ -141,7 +148,7 @@ function App() {
           <Header className="site-layout-background" style={{ padding: 0,background: '#404040',color: '#ffffff',textAlign: 'center',display:'inline' }}><img src={BANANA} alt='Banana' className='App-logo' style={{ marginRight: '1REM' }}/>Bananas En Smoking<img src={BANANA} alt='Banana' className='App-logo' style={{ transform: 'scaleX(-1)', marginLeft: '1REM' }}/>
           {sessionStorage.token !== null && sessionStorage.token !== undefined?
           <Link to='/MyCar'>
-          <img src={CAR} alt='' width={35} style={{ position:'relative',left:'40rem'}}/>
+          <img src={CAR} alt='' width={35} style={{ position:'relative',left:'0 rem'}}/>
           </Link>
           :''}
           </Header>
@@ -173,7 +180,7 @@ function App() {
               
             </Switch>
           </Content>
-          <Footer style={{ textAlign: 'center', background: '#404040' }}>Bananas {infoUser !== null && infoUser !== undefined?infoUser.name:''}</Footer>
+          <Footer style={{ textAlign: 'center', background: '#dbdbdb' }}>Bananas {infoUser !== null && infoUser !== undefined?infoUser.name:''}</Footer>
         </Layout>
       </Layout>
       </Router>

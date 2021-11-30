@@ -1,7 +1,7 @@
 import * as React from "react";
-import { Form, Input, Button, Card, Row,message,Avatar } from 'antd';
+import { Form, Input, Button, Card, Row,message,Avatar, Col } from 'antd';
 import { urlApi } from "../../API";
-
+import BES from "../../img/isologo/BES.png";
 
 const { Meta } = Card;
 
@@ -92,7 +92,7 @@ export const Login:React.FC=()=>{
             <Row gutter={{ xs: 4, sm: 16, md: 24, lg: 32 }} style={{ justifyContent:'center' }}>
               { infoUser !== null && infoUser !== undefined?
               <Card
-              style={{ padding:'2rem',margin:'1rem',borderRadius:'10px',boxShadow:'0px 5px 8px rgba(0, 0, 0, 0.377)',background: '-webkit-linear-gradient(bottom, #2dbd6e, #a6f77b)'
+              style={{ padding:'2rem',margin:'1rem',borderRadius:'8px',boxShadow:'0px 5px 8px rgba(0, 0, 0, 0.377)',background: '-webkit-linear-gradient(bottom, #ffffff, #ffffff)'
 }}
               cover={
                 <img
@@ -117,7 +117,7 @@ export const Login:React.FC=()=>{
       initialValues={{ remember: true }}
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
-      style={{ padding:'2rem',margin:'1rem',borderRadius:'10px',boxShadow:'0px 5px 8px rgba(0, 0, 0, 0.377)',background: '-webkit-linear-gradient(bottom, #2dbd6e, #a6f77b)'
+      style={{ padding:'2rem',margin:'1rem',borderRadius:'8px',boxShadow:'0px 5px 8px rgba(0, 0, 0, 0.377)',background: '-webkit-linear-gradient(bottom, #ffffff, #ffffff)'
 }}
       >
       <Form.Item

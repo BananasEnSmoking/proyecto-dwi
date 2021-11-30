@@ -133,7 +133,7 @@ return(
             </Col>
             {sessionStorage.token?
             <Col span={6}>
-                <Card title='Add to Car'>
+                <Card title='Add to Cart'>
                     <Form.Item label='Amount :' style={{ width:'6rem' }}>
                         <Input type='number' name='cantidad' min={1} defaultValue={addCar.cantidad} onChange={handleOnChange} />
                     </Form.Item>
@@ -142,7 +142,7 @@ return(
                     <br />
                     {`Total: ${formatter.format(parseFloat(infoProduct.price) * parseInt(addCar.cantidad))}`}
                     <br />
-                    <Button type='primary' onClick={handleAddToCar} style={{ margin:'1rem' }}>Add to Car</Button>
+                    <Button type='primary' onClick={handleAddToCar} style={{ margin:'1rem' }}>Add to Cart</Button>
                 </Card>
             </Col>
             :
