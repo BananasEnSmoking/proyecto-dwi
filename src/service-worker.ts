@@ -15,7 +15,7 @@ import { registerRoute } from 'workbox-routing';
 import { StaleWhileRevalidate } from 'workbox-strategies';
 import { cacheNames, setCacheNameDetails } from 'workbox-core';
 import { CacheFirst } from "workbox-strategies";
-import { BackgroundSyncPlugin } from 'workbox-background-sync';
+import { BackgroundSyncPlugin, Queue } from 'workbox-background-sync';
 import { NetworkOnly } from "workbox-strategies";
 
 declare const self: ServiceWorkerGlobalScope;
@@ -106,14 +106,20 @@ registerRoute(
   })
 );
 
-const bgSyncPlugin = new BackgroundSyncPlugin('queue', {
-  maxRetentionTime: 24 * 60 // Retry for max of 24 hours (specified in minutes)
-});
+const bgSyncPlugin = new BackgroundSyncPlugin('sync-requests', {});
 
 registerRoute(
-  ({ url }) => url.pathname === '/insertProduct', 
+  'htpp://localhost:3001/insertProduct', 
   new NetworkOnly({
     plugins: [ bgSyncPlugin ]
   }),
   'POST'
 );
+
+/*registerRoute(
+  'htpp://localhost:3001/insertCar', 
+  new NetworkOnly({
+    plugins: [ bgSyncPlugin ]
+  }),
+  'POST'
+);*/

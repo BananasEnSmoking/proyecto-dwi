@@ -47,7 +47,7 @@ export const ProductDetails:React.FC=()=>{
     async function insertData() {
         try {
             const body = JSON.stringify(addCar);
-            const response = await fetch(`${urlApi}/insertCar`,{ method:'post', mode:'cors', headers:{ 
+            const response = await fetch(`${urlApi}/insertCar`,{ method:'POST', mode:'cors', headers:{ 
             'Accept': 'application/json',
             "Content-Type": "application/json",
             'x-access-token': token
@@ -95,20 +95,20 @@ export const ProductDetails:React.FC=()=>{
 return(
     <React.Fragment>
        <Modal
-       title="Confirm"
-       visible={confirm}
-       onOk={handleOkConfirm}
+        title="Confirm"
+        visible={confirm}
+        onOk={handleOkConfirm}
         onCancel={handleCancelConfirm}
        >
-
+           <p>Do you want to add this item to cart?</p>
        </Modal>
         {infoProduct !== null && infoProduct !== undefined?
-        <Row style={{ marginTop:'1rem' }}>
-            <Col span={15} style={{ marginRight:'5rem' }}>
+        <Row style={{ marginTop:'1rem', alignItems:'center' }}>
+            <Col span={15} style={{ marginRight:'3rem' }}>
                 <Card title='Product Information'>
-                    <Row>
+                    <Row style={{ justifyContent:'space-around' }}>
                         <Col span={7}>
-                        <Image src={`${infoProduct.img}`} width={200} height={270}/>
+                            <Image src={`${infoProduct.img}`} width={200} height={270}/>
                         </Col>
                         <Col span={17}>
                         <h1>
@@ -134,13 +134,13 @@ return(
             {sessionStorage.token?
             <Col span={6}>
                 <Card title='Add to Cart'>
-                    <Form.Item label='Amount :' style={{ width:'6rem' }}>
+                    <Form.Item label='Amount :' style={{ width:'6rem', fontStyle:'bold' }}>
                         <Input type='number' name='cantidad' min={1} defaultValue={addCar.cantidad} onChange={handleOnChange} />
                     </Form.Item>
                     <br />
-                    {`Price: ${infoProduct.price}`}
+                    <b>Price:</b> {`$${infoProduct.price}`}
                     <br />
-                    {`Total: ${formatter.format(parseFloat(infoProduct.price) * parseInt(addCar.cantidad))}`}
+                    <b>Total:</b> {`${formatter.format(parseFloat(infoProduct.price) * parseInt(addCar.cantidad))}`}
                     <br />
                     <Button type='primary' onClick={handleAddToCar} style={{ margin:'1rem' }}>Add to Cart</Button>
                 </Card>

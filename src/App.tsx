@@ -37,7 +37,10 @@ import {
   HomeTwoTone,
   UnlockTwoTone,
   PlusCircleTwoTone,
-  ShopTwoTone
+  ShopTwoTone,
+  ShoppingTwoTone,
+  SkinTwoTone,
+  HeartFilled
 } from '@ant-design/icons';
 import { ProductDetails } from './componentes/Products/ProductDetails';
 import { Car } from './componentes/Car/Car';
@@ -118,7 +121,7 @@ function App() {
     <div className="App">
       <Router>
       <Layout style={{ minHeight: '100vh' }}>
-        <Sider collapsible collapsed={collapse} onCollapse={handleOnCollapse} style={{ background:'#404040' }}>
+        <Sider collapsible collapsed={collapse} onCollapse={handleOnCollapse} style={{ background:'#17257e' }}>
           <Menu theme='light' defaultSelectedKeys={['1']} mode="inline">
             <Menu.Item key='1' icon={<HomeTwoTone twoToneColor='#FEC42D'/>}>Home<Link to={'/'}></Link></Menu.Item>
             <Menu.Item key='2' icon={<UnlockTwoTone twoToneColor='#FEC42D'/>}>Login<Link to={'/Login'}></Link></Menu.Item>
@@ -128,11 +131,14 @@ function App() {
             }
             <Menu.Item key='4' icon={<ShopTwoTone twoToneColor='#FEC42D' />}>All Products<Link to={'/AllProducts'}></Link></Menu.Item> 
             {infoUser !== null && infoUser !== undefined && infoUser.roles_idroles === 3?
-            <Menu.Item key='5' icon={<ShopTwoTone twoToneColor='#FEC42D' />}>Add Product<Link to={'/AddProduct'}></Link></Menu.Item> 
+            <Menu.Item key='5' icon={<SkinTwoTone twoToneColor='#FEC42D' />}>Add Product<Link to={'/AddProduct'}></Link></Menu.Item> 
             :
             ''
           }
-
+            {infoUser !== null && infoUser !== undefined ?
+              <Menu.Item key='6' icon={<ShoppingTwoTone twoToneColor='#FEC42D' />}>Go to cart<Link to={'/MyCar'}></Link></Menu.Item> 
+              : ''
+            } 
               
             {/**
             <SubMenu key="sub1" icon={<UserOutlined />} title="User">
@@ -145,12 +151,15 @@ function App() {
           </Menu>
         </Sider>
         <Layout className="site-layout">
-          <Header className="site-layout-background" style={{ padding: 0,background: '#404040',color: '#ffffff',textAlign: 'center',display:'inline' }}><img src={BANANA} alt='Banana' className='App-logo' style={{ marginRight: '1REM' }}/>Bananas En Smoking<img src={BANANA} alt='Banana' className='App-logo' style={{ transform: 'scaleX(-1)', marginLeft: '1REM' }}/>
-          {sessionStorage.token !== null && sessionStorage.token !== undefined?
+          <Header className="site-layout-background" style={{ padding: 0,background: '#17257e',color: '#ffffff',textAlign: 'center',display:'inline' }}>
+            <img src={BANANA} alt='Banana' className='App-logo' style={{ marginRight: '1REM' }}/>
+              Bananas En Smoking
+            <img src={BANANA} alt='Banana' className='App-logo' style={{ transform: 'scaleX(-1)', marginLeft: '1REM' }}/>
+          {/*sessionStorage.token !== null && sessionStorage.token !== undefined?
           <Link to='/MyCar'>
-          <img src={CAR} alt='' width={35} style={{ position:'relative',left:'0 rem'}}/>
+            <img src={CAR} alt='' width={35} style={{ position:'relative', left:'15rem'}}/>
           </Link>
-          :''}
+          :''*/}
           </Header>
           <Content style={{ margin: '0 16px' }}>
             <Switch>
@@ -180,7 +189,7 @@ function App() {
               
             </Switch>
           </Content>
-          <Footer style={{ textAlign: 'center', background: '#dbdbdb' }}>Bananas {infoUser !== null && infoUser !== undefined?infoUser.name:''}</Footer>
+          <Footer style={{ textAlign: 'center', background: '#17257e', color:'#ffffff' }}>Bananas 2021 <HeartFilled color="#cc0000" /> Made with sweat, pain and love {infoUser !== null && infoUser !== undefined?infoUser.name:''}</Footer> 
         </Layout>
       </Layout>
       </Router>
