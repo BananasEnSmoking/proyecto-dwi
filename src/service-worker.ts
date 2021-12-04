@@ -116,10 +116,10 @@ registerRoute(
   'POST'
 );
 
-/*registerRoute(
+registerRoute(
   'htpp://localhost:3001/insertCar', 
   new NetworkOnly({
     plugins: [ bgSyncPlugin ]
   }),
   'POST'
-);*/
+);
