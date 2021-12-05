@@ -22,6 +22,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "react-service-worker": "^0.1.1",
+    "serve": "^13.0.2",
     "styled-components": "^5.3.3",
     "transform": "^1.1.2",
     "typescript": "^4.3.2",

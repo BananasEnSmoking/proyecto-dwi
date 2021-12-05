@@ -2,9 +2,6 @@ import * as React from 'react';
 import { Row,Col,Card,Image,Form,Input, Button, message,Select } from "antd";
 import { urlApi } from "../../API";
 import { useHistory } from "react-router-dom";
-import { classDeclaration } from '@babel/types';
-import { Footer } from 'antd/lib/layout/layout';
-//import { Camera } from '../Camera';
 import { Preview } from "./Camera/styles";
 import { Camera } from './Camera';
 
@@ -154,8 +151,8 @@ export const Seller:React.FC =()=>{
                 </Col>
                 <Col>
                     <Row>
-                        <Button type='primary' style={{ margin:'0.5rem' }} onClick={() => setIsCameraOpen(true)}>Open camera</Button>
-                        <Button type='primary' style={{ margin:'0.5rem' }} onClick={() => {
+                        <Button type='primary' style={{ margin:'1rem' }} onClick={() => setIsCameraOpen(true)}>Open camera</Button>
+                        <Button type='primary' style={{ margin:'1rem' }} onClick={() => {
                             setIsCameraOpen(false);
                             setCardImage(undefined);
                         }}>Close camera</Button>

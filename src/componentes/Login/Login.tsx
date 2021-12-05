@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Form, Input, Button, Card, Row,message,Avatar, Col } from 'antd';
+import { Form, Input, Button, Card, Row,message,Avatar } from 'antd';
 import { urlApi } from "../../API";
 import BES from "../../img/isologo/BES.png";
 

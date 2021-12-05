@@ -2,9 +2,7 @@ import React, { useEffect } from 'react';
 import 'antd/dist/antd.css';
 import './App.css';
 import { urlApi } from "./API";
-//import BES from "../src/img/isologo/BES.png";
 import BANANA from "../src/img/isotipo/BES11.png";
-import CAR from "../src/img/carrito.svg";
 import { Layout, Menu } from 'antd';
 import OneSignalReact from 'react-onesignal';
 
@@ -98,8 +96,6 @@ function App() {
   },[])// eslint-disable-line react-hooks/exhaustive-deps
 
   const [show,setShow] = React.useState(false)
-  const [rol,setRol] = React.useState<any>()
-
 
   React.useEffect(()=>{
     setInterval(()=>{
@@ -113,7 +109,7 @@ function App() {
   
   React.useEffect(()=>{
     
-  },[infoUser])
+  },[infoUser, getUserData])
 
   
   

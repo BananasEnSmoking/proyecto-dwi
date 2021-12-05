@@ -36,6 +36,7 @@ export const Canvas = styled.canvas`
 
 export const Video = styled.video`
   position: absolute;
+  width: 100%;
 
   &::-webkit-media-controls-play-button {
     display: none !important;
@@ -50,6 +51,7 @@ export const Overlay = styled.div`
   bottom: 20px;
   left: 20px;
   border-radius: 10px;
+  width: 100%;
 `;
 
 export const Flash = styled.div`
@@ -68,16 +70,6 @@ export const Flash = styled.div`
       `;
     }
   }}
-`;
-
-export const Button = styled.button`
-  width: 75%;
-  min-width: 100px;
-  max-width: 250px;
-  margin-top: 24px;
-  margin: 10px;
-  padding: 12px 24px;
-  background-color: #3232aa;
 `;
 
 export const Preview = styled.img`

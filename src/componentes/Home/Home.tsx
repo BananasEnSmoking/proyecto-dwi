@@ -1,6 +1,5 @@
 import * as React from "react";
-import logo from "../../img/utalogo.png"
-import loboBES from "../../img/isologo/BES.png";
+import logoBES from "../../img/isologo/BES.png";
 import { Row,Col } from "antd";
 
 export const Home:React.FC=()=>{
@@ -20,7 +19,7 @@ export const Home:React.FC=()=>{
     return(
         <React.Fragment>
             <Row style={{ justifyContent:'center', marginTop:"3rem" }}>
-            <img  src={loboBES} width={wd} height={he} alt="logo"/>
+            <img  src={logoBES} width={wd} height={he} alt="logo"/>
             </Row>
             <Row>
                 <Col>
