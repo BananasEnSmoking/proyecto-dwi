@@ -16,7 +16,7 @@ export const AllProducts:React.FC =()=>{
 
     async function getProducts() {
       try {
-            const response = await fetch(`${urlApi}/products`,{ method:'Get', mode:'cors', headers:{ 
+            const response = await fetch(`${urlApi}/products`,{ method:'GET', mode:'cors', headers:{ 
               'Accept': 'application/json',
               'x-access-token': `${sessionStorage.token}`
             }});
@@ -49,7 +49,7 @@ export const AllProducts:React.FC =()=>{
     async function getBycategory() {
       try {
         const body = JSON.stringify({'idcategory':category});
-        const getInfo = await fetch(`${urlApi}/getProductsByCategory`,{ method:'post', mode:'cors', headers:{ 
+        const getInfo = await fetch(`${urlApi}/getProductsByCategory`,{ method:'POST', mode:'cors', headers:{ 
           'Accept': 'application/json',
           "Content-Type": "application/json",
           'x-access-token': `${sessionStorage.token}`

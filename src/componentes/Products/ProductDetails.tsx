@@ -29,7 +29,7 @@ export const ProductDetails:React.FC=()=>{
     async function getProduct() {
         try {
             const body = JSON.stringify(search);
-            const response = await fetch(`${urlApi}/getOneProduct`,{ method:'post', mode:'cors', headers:{ 
+            const response = await fetch(`${urlApi}/getOneProduct`,{ method:'POST', mode:'cors', headers:{ 
             'Accept': 'application/json',
             "Content-Type": "application/json",
           },body:body});

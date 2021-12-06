@@ -149,7 +149,7 @@ export const Seller:React.FC =()=>{
                 </Card> 
              
                 </Col>
-                <Col>
+                <Col span={10}>
                     <Row>
                         <Button type='primary' style={{ margin:'1rem' }} onClick={() => setIsCameraOpen(true)}>Open camera</Button>
                         <Button type='primary' style={{ margin:'1rem' }} onClick={() => {

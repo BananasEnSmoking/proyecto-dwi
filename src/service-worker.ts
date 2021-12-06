@@ -17,7 +17,6 @@ import { cacheNames, setCacheNameDetails } from 'workbox-core';
 import { CacheFirst } from "workbox-strategies";
 import { BackgroundSyncPlugin, Queue } from 'workbox-background-sync';
 import { NetworkOnly } from "workbox-strategies";
-import { urlApi } from "./API";
 import OneSignalReact from "react-onesignal";
 import { sendNotification } from "./notifications";
 import logo from "./img/isologo/BES.png";
@@ -78,7 +77,7 @@ registerRoute(
   ({ url }) => url.origin === self.location.origin && url.pathname.endsWith('.png') || url.pathname.endsWith('.ico'),
   // Customize this strategy as needed, e.g., by changing to CacheFirst.
   new StaleWhileRevalidate({
-    cacheName: cacheNames.runtime,
+    cacheName: 'bes-data-v4',
     plugins: [
       // Ensure that once this runtime cache reaches a maximum size the
       // least-recently used images are removed.
@@ -98,37 +97,13 @@ self.addEventListener('message', (event) => {
 // Next functions get the data from the API when their corresponding calls are fulfull
 // So this way we get the products and the cart 
 registerRoute(
-  ({ url }) => url.pathname === '/products',
+  ({ url }) => url.pathname == '/products' || url.pathname == '/getCar' ||
+  url.pathname == '/infoUsuario',
   new CacheFirst({
-    cacheName: cacheNames.runtime,
-    plugins: [
-      new ExpirationPlugin({ 
-        maxAgeSeconds: 24 * 60 * 30  
-      })
-    ]
-  })
-);
-
-registerRoute(
-  ({url}) => url.pathname === '/getCar',
-  new CacheFirst({
-    cacheName: cacheNames.runtime,
-    plugins: [
-      new ExpirationPlugin({ 
-        maxAgeSeconds: 24 * 60 * 30, 
-        maxEntries: 20
-      })
-    ]
-  })
-);
-
-registerRoute(
-  ({url}) => url.pathname === '/infousuario',
-  new CacheFirst({
-    cacheName: cacheNames.runtime,
+    cacheName: 'bes-data-v4',
     plugins: [
       new ExpirationPlugin({
-        maxEntries: 1
+        maxAgeSeconds: 24 * 60 * 30
       })
     ]
   })
@@ -178,31 +153,19 @@ self.addEventListener('online', () => {
   
   // Next two functions work with two different background sync plugins 
   // so when user is offline and try to do one of these, they get saved 
-  // in the indexedDB and are fulfill once the connection is restablished 
-  const bgSyncPlugin = new BackgroundSyncPlugin('product-queue', {});
-  
+  // in the indexedDB and are fulfill once the connection is restablished     
+  const bgSyncPlugin = new BackgroundSyncPlugin('requests-queue', {});
+   
   registerRoute(
-    `${urlApi}/insertProduct`, 
+    ({ url }) => url.pathname === '/insertProduct' || url.pathname === '/insertCar' ||
+      url.pathname === '/deleteItemCar', 
     new NetworkOnly({
-      plugins: [ bgSyncPlugin ]
+      plugins: [ 
+        bgSyncPlugin,
+        new ExpirationPlugin({
+          maxAgeSeconds: 24 * 60
+        })
+      ]
     }),
     'POST'
-    );
-    
-    const bgSyncPluginCart = new BackgroundSyncPlugin('cart-queue', {});
-    
-    /*registerRoute(
-      ({url}) => url.pathname === '/insertCar',
-      new NetworkOnly({
-        plugins: [ bgSyncPluginCart ],
-      }),
-      'POST'
-      );*/
-  
-registerRoute(
-  `${urlApi}/insertCar`, 
-  new NetworkOnly({
-    plugins: [ bgSyncPluginCart ]
-  }),
-  'POST'
-);
+  );

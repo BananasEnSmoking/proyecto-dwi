@@ -31,7 +31,6 @@ export const Canvas = styled.canvas`
   left: 0;
   bottom: 0;
   right: 0;
-  width: 100%;
 `;
 
 export const Video = styled.video`
