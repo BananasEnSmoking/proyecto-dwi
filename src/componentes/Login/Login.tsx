@@ -1,7 +1,6 @@
 import * as React from "react";
 import { Form, Input, Button, Card, Row,message,Avatar } from 'antd';
 import { urlApi } from "../../API";
-import BES from "../../img/isologo/BES.png";
 
 const { Meta } = Card;
 

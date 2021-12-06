@@ -127,7 +127,7 @@ export const AllProducts:React.FC =()=>{
             </Form.Item>
            </Col>
            <Col span={8} >
-         <Search placeholder={'Enter your Search'} onChange={handleSearch} />
+         <Search placeholder={'Enter your search'} onChange={handleSearch} />
            </Col>
          </Row>
            <Row gutter={[16,16]} style={{ marginTop:'3rem'}}>

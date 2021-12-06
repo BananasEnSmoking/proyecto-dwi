@@ -109,7 +109,7 @@ function App() {
   
   React.useEffect(()=>{
     
-  },[infoUser, getUserData])
+  },[infoUser])
 
   
   
