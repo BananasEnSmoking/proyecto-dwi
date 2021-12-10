@@ -11,15 +11,11 @@
 import { clientsClaim } from 'workbox-core';
 import { ExpirationPlugin } from 'workbox-expiration';
 import { precacheAndRoute, createHandlerBoundToURL } from 'workbox-precaching';
-import { registerRoute, NavigationRoute } from 'workbox-routing';
+import { registerRoute } from 'workbox-routing';
 import { StaleWhileRevalidate } from 'workbox-strategies';
 import { cacheNames, setCacheNameDetails } from 'workbox-core';
-import { CacheFirst } from "workbox-strategies";
-import { BackgroundSyncPlugin, Queue } from 'workbox-background-sync';
+import { BackgroundSyncPlugin } from 'workbox-background-sync';
 import { NetworkOnly } from "workbox-strategies";
-import OneSignalReact from "react-onesignal";
-import { sendNotification } from "./notifications";
-import logo from "./img/isologo/BES.png";
 
 declare const self: ServiceWorkerGlobalScope;
 
@@ -28,7 +24,7 @@ clientsClaim();
 // set cache Name for installing and run-time
 setCacheNameDetails({
   prefix: 'bes',
-  suffix: 'v4',
+  suffix: 'v5',
   precache: 'precache',
   runtime: 'run-time'
 });
@@ -77,7 +73,7 @@ registerRoute(
   ({ url }) => url.origin === self.location.origin && url.pathname.endsWith('.png') || url.pathname.endsWith('.ico'),
   // Customize this strategy as needed, e.g., by changing to CacheFirst.
   new StaleWhileRevalidate({
-    cacheName: 'bes-data-v4',
+    cacheName: 'bes-data-v5',
     plugins: [
       // Ensure that once this runtime cache reaches a maximum size the
       // least-recently used images are removed.
@@ -97,10 +93,9 @@ self.addEventListener('message', (event) => {
 // Next functions get the data from the API when their corresponding calls are fulfull
 // So this way we get the products and the cart 
 registerRoute(
-  ({ url }) => url.pathname == '/products' || url.pathname == '/getCar' ||
-  url.pathname == '/infoUsuario',
-  new CacheFirst({
-    cacheName: 'bes-data-v4',
+  ({ url }) => url.pathname == '/products' || url.pathname == '/getCar',
+  new StaleWhileRevalidate({
+    cacheName: 'bes-data-v5',
     plugins: [
       new ExpirationPlugin({
         maxAgeSeconds: 24 * 60 * 30
@@ -109,52 +104,23 @@ registerRoute(
   })
 );
 
-/*self.addEventListener('offline', () => {
-  //sendNotification('Applications is offline, cannot complete requests for the moment')
-  console.log('you are offline');
-});
+registerRoute(
+  ({ url }) => url.pathname == '/infoUsuario',
+  new StaleWhileRevalidate({
+    cacheName: 'bes-data-v5',
+    plugins: [
+      new ExpirationPlugin({
+        maxAgeSeconds: 24 * 60 * 30,
+        maxEntries: 1
+      })
+    ]
+  })
+);
 
-self.addEventListener('online', () => {
-  //sendNotification('Applications is online, will complete your request as soon as possible')
-  console.log('you are online');
-  OneSignalReact.sendSelfNotification(
-    "Bananas en Smoking",
-    "You are online again. Will try to complete pending requests",
-    "http://localost:3000",
-    logo,
-    {
-      notificationType: "online"
-    },
-    [{
-      id: 'like-button',
-      text: 'Like',
-      'icon': logo,
-      'url': "http://localhost:3000"
-    },
-    {
-      id: 'read-more-button',
-      text: 'Read more',
-      icon: logo,
-      url: 'http://localhost:3000'
-    }
-  ]
-  );
-});*/
-
-/*const bgSyncQueue = new Queue('product-queue', {
-  onSync: () => {
-    OneSignalReact.sendOutcome(
-      "Back online! Request can't be completed",
-      3532
-      )
-    },
-    maxRetentionTime: 30 * 60
-  });*/
-  
   // Next two functions work with two different background sync plugins 
   // so when user is offline and try to do one of these, they get saved 
   // in the indexedDB and are fulfill once the connection is restablished     
-  const bgSyncPlugin = new BackgroundSyncPlugin('requests-queue', {});
+  const bgSyncPlugin = new BackgroundSyncPlugin('bes-queue', {});
    
   registerRoute(
     ({ url }) => url.pathname === '/insertProduct' || url.pathname === '/insertCar' ||

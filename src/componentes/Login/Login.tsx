@@ -19,7 +19,7 @@ export const Login:React.FC=()=>{
           const response = await fetch(`${urlApi}/signIn`, { method: 'POST', headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
-          },body:body })        
+          },body:body });        
           const res = await response.json();
             if(response.status === 401){
                 message.error('Invalido!')

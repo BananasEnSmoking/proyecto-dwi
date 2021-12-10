@@ -55,16 +55,18 @@ function App() {
     setCollapse((currentCollapse:boolean)=>!collapse)
   }
   
-  useEffect(() => {
+  /*useEffect(() => {
     OneSignalReact.init({
       appId: "ab53344b-5cee-4fea-b079-3b5052a3be9f",
       notifyButton: true,
       SERVICE_WORKER_PARAM: '/push/onesignal/',
       SERVICE_WORKER_PATH: 'push/onesignal/OneSignalSDKWorker.js',
       SERVICE_WORKER_UPDATED_PATH: 'push/onesignal/OneSignalSDKUpdaterWorker.js'
+    }).catch((error) => {
+      console.log("error: " + error)
     });
     console.log('onesignal has been initialized')
-  }, []);  
+  }, []);  */
 
   async function getUserData() {
     if(token !== null && token !== undefined){
