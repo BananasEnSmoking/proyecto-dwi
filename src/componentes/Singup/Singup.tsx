@@ -64,11 +64,11 @@ export const Singup:React.FC =()=>{
                         <img src={BES} alt='Banana' width={120} />
                             </Col>
                             <Col span={12}>
-                        <h2>Sing up</h2>
+                        <h2>Sign up</h2>
                             </Col>
                         </Row>
                         </React.Fragment>
-                        } className='title-card' style={{ borderRadius:'10px',boxShadow:'0px 5px 8px rgba(0, 0, 0, 0.377)',background: 'linear-gradient(to right, #06beb6, #48b1bf)'
+                        } className='title-card' style={{ borderRadius:'8px',boxShadow:'0px 5px 8px rgba(0, 0, 0, 0.377)',background: 'linear-gradient(to right, #ffffff, #ffffff)'
 }}>
                         <Form layout='vertical' onSubmitCapture={onSubmit} >
                             <Row gutter={[15,15]}>

@@ -2,14 +2,11 @@ import * as React from 'react';
 import { Row,Col,Card,Image,Form,Input, Button, message,Select } from "antd";
 import { urlApi } from "../../API";
 import { useHistory } from "react-router-dom";
-
+import { Preview } from "./Camera/styles";
+import { Camera } from './Camera';
 
 const { Meta } = Card;
 const { TextArea } = Input;
-
-
-
-
 
 export const Seller:React.FC =()=>{
     const [categories,setCategories]=React.useState<any>();
@@ -19,9 +16,11 @@ export const Seller:React.FC =()=>{
         'category':1,
         'longDescription':'',
     });
+
     let history = useHistory();
 
-    
+    const [isCameraOpen, setIsCameraOpen] = React.useState<any>(false);
+    const [cardImage, setCardImage] = React.useState<any>(false);
 
     const token= sessionStorage.token
 
@@ -44,7 +43,7 @@ export const Seller:React.FC =()=>{
     async function insertData() {
         try {
             const body = JSON.stringify(dataProduct);
-            const response = await fetch(`${urlApi}/insertProduct`,{ method:'post', mode:'cors', headers:{ 
+            const response = await fetch(`${urlApi}/insertProduct`,{ method:'POST', mode:'cors', headers:{ 
             'Accept': 'application/json',
             "Content-Type": "application/json",
             'x-access-token': token
@@ -58,13 +57,21 @@ export const Seller:React.FC =()=>{
         } catch (error) {
           console.log(error)
         }
-    }
+    }    
     
-
     const handleOnChange =(e:any)=>{
         setDataProduct({...dataProduct,[e.currentTarget.name]:e.currentTarget.value});
     }
 
+    const handleImageTaken = async(blob:any) => {
+        const data = new FormData();
+        data.append('file', blob);
+        data.append('upload_preset', 'dwzggunyf');
+        const res = await fetch('https://api.cloudinary.com/v1_1/dwzggunyf/image/upload', {method:'POST', body: data})
+        const file = await res.json();
+        setDataProduct((current:any)=>{return {...current, 'image': file.secure_url}})
+    }
+    
     const handleIMG =async(e:any) => {
         const files = e.target.files
         const data = new FormData()
@@ -134,12 +141,42 @@ export const Seller:React.FC =()=>{
                     </Card>
                 </Col>
                 <Col style={{textAlign:'center'}}>
-                <h1>Card Preview</h1>
+                <h1>Item Preview</h1>
                 <Card title={dataProduct.name}>
                    <Image src={dataProduct.image} width={230} height={300}/>
                    <br />
                    <Meta title={`Category: ${categories !== null && categories !== undefined?categories.filter((val:any)=>val.idcategory === dataProduct.category)[0].category:''} / Price:  $${dataProduct.price}`}/>
-               </Card>
+                </Card> 
+             
+                </Col>
+                <Col span={10}>
+                    <Row>
+                        <Button type='primary' style={{ margin:'1rem' }} onClick={() => setIsCameraOpen(true)}>Open camera</Button>
+                        <Button type='primary' style={{ margin:'1rem' }} onClick={() => {
+                            setIsCameraOpen(false);
+                            setCardImage(undefined);
+                        }}>Close camera</Button>
+                    </Row>
+
+                    <Row> 
+                        {isCameraOpen && (
+                            <Camera 
+                                onCapture={(blob:any) => {
+                                    setCardImage(blob)
+                                    handleImageTaken(blob)
+                                }}
+                                onClear={() => setCardImage(undefined)}
+                            />
+                        )}
+
+                        {cardImage && (
+                            <div>
+                                <h2>Preview</h2>
+                                <Preview src={cardImage && URL.createObjectURL(cardImage)}/>
+                            </div>
+                        )}
+                    </Row>
+
                 </Col>
             </Row>
         </React.Fragment>
